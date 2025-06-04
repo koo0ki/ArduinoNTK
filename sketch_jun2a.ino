@@ -45,13 +45,14 @@ void setup() {
 
   myDFPlayer.setTimeOut(500);
 
-  myDFPlayer.volume(10);
+  myDFPlayer.volume(15);
   myDFPlayer.volumeUp();
   myDFPlayer.volumeDown();
 
   myDFPlayer.EQ(DFPLAYER_EQ_NORMAL);
 
   myDFPlayer.outputDevice(DFPLAYER_DEVICE_SD);
+  myDFPlayer.next();
 }
 
 void loop() {
