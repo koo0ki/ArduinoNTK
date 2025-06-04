@@ -58,40 +58,36 @@ void setup() {
 void loop() {
   lcd1.clear();
   lcd1.setCursor(0, 0);
-  lcd1.print("     ##  ##    ");  
+  lcd1.print("     ##  ##    ");
   lcd1.setCursor(0, 1);
-  lcd1.print("     ##  ##    ");  
+  lcd1.print("     ##  ##    ");
   delay(500);
 
   lcd2.clear();
-  lcd2.setCursor(0, 0);
-  lcd2.print("     ____    "); 
   lcd2.setCursor(0, 1);
-  lcd2.print("   /      \\  "); 
+  lcd2.print("    ______  ");
 
   lcd1.clear();
   lcd1.setCursor(0, 0);
   lcd1.print("               ");
   lcd1.setCursor(0, 1);
-  lcd1.print("     ##  ##    "); 
+  lcd1.print("     ##  ##    ");
   delay(500);
 
 
   lcd1.clear();
   lcd1.setCursor(0, 0);
-  lcd1.print("               ");  
+  lcd1.print("               ");
   lcd1.setCursor(0, 1);
-  lcd1.print("     __  __    ");  
+  lcd1.print("     __  __    ");
   delay(500);
 
   lcd2.clear();
   lcd2.setCursor(0, 0);
-  lcd2.print("     ----    ");  
+  lcd2.print("    ______   ");
   lcd2.setCursor(0, 1);
-  lcd2.print("   \\______/  "); 
+  lcd2.print("   |______/  ");
   delay(500);
-
-  
 }
 
 void printDetail(uint8_t type, int value) {
