@@ -58,39 +58,37 @@ void setup() {
 void loop() {
   lcd1.clear();
   lcd1.setCursor(0, 0);
-  lcd1.print("     ##  ##    ");  // Глаза
+  lcd1.print("     ##  ##    ");  
   lcd1.setCursor(0, 1);
-  lcd1.print("     ##  ##    ");  // Глаза
-  delay(500);                     // Задержка 1 секунда
-
-  // Выводим улыбку на втором дисплее
-  lcd2.clear();
-  lcd2.setCursor(0, 0);
-  lcd2.print("     ____    ");  // Верхняя часть улыбки
-  lcd2.setCursor(0, 1);
-  lcd2.print("   /      \\  ");  // Рот
-
-  lcd1.clear();
-  lcd1.setCursor(0, 0);
-  lcd1.print("               ");  // Глаза
-  lcd1.setCursor(0, 1);
-  lcd1.print("     ##  ##    ");  // Глаза
-  delay(500);                     // Задержка 1 секунда
-
-
-  lcd1.clear();
-  lcd1.setCursor(0, 0);
-  lcd1.print("               ");  // Глаза
-  lcd1.setCursor(0, 1);
-  lcd1.print("     __  __    ");  // Глаза
+  lcd1.print("     ##  ##    ");  
   delay(500);
 
-  // Меняем улыбку на втором дисплее
   lcd2.clear();
   lcd2.setCursor(0, 0);
-  lcd2.print("     ----    ");  // Верхняя часть улыбки
+  lcd2.print("     ____    "); 
   lcd2.setCursor(0, 1);
-  lcd2.print("   \\______/  ");  // Рот
+  lcd2.print("   /      \\  "); 
+
+  lcd1.clear();
+  lcd1.setCursor(0, 0);
+  lcd1.print("               ");
+  lcd1.setCursor(0, 1);
+  lcd1.print("     ##  ##    "); 
+  delay(500);
+
+
+  lcd1.clear();
+  lcd1.setCursor(0, 0);
+  lcd1.print("               ");  
+  lcd1.setCursor(0, 1);
+  lcd1.print("     __  __    ");  
+  delay(500);
+
+  lcd2.clear();
+  lcd2.setCursor(0, 0);
+  lcd2.print("     ----    ");  
+  lcd2.setCursor(0, 1);
+  lcd2.print("   \\______/  "); 
   delay(500);
 
   
