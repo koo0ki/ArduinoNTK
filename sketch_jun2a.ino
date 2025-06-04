@@ -3,6 +3,15 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
+#include <Adafruit_NeoPixel.h>
+
+#include <WS2812FX.h>
+
+#define LED_COUNT 16
+#define LED_PIN 6
+
+#define TIMER_MS 3000
+
 #if (defined(ARDUINO_AVR_UNO) || defined(ESP8266))  // Using a soft serial port
 #include <SoftwareSerial.h>
 SoftwareSerial softSerial(/*rx =*/10, /*tx =*/11);
@@ -12,10 +21,16 @@ SoftwareSerial softSerial(/*rx =*/10, /*tx =*/11);
 #endif
 
 DFRobotDFPlayerMini myDFPlayer;
+WS2812FX ws2812fx = WS2812FX(LED_COUNT, LED_PIN, NEO_RGB + NEO_KHZ800);
+
 void printDetail(uint8_t type, int value);
 
 LiquidCrystal_I2C lcd1(0x26, 16, 2);
 LiquidCrystal_I2C lcd2(0x27, 16, 2);
+
+
+unsigned long last_change = 0;
+unsigned long now = 0;
 
 void setup() {
 #if (defined ESP32)
@@ -34,7 +49,7 @@ void setup() {
   Serial.println(F("DFRobot DFPlayer Mini Demo"));
   Serial.println(F("Initializing DFPlayer ... (May take 3~5 seconds)"));
 
-  if (!myDFPlayer.begin(FPSerial, /*isACK = */ true, /*doReset = */ true)) {  //Use serial to communicate with mp3.
+  if (!myDFPlayer.begin(FPSerial, true, true)) {
     Serial.println(F("Unable to begin:"));
     Serial.println(F("1.Please recheck the connection!"));
     Serial.println(F("2.Please insert the SD card!"));
@@ -45,17 +60,33 @@ void setup() {
 
   myDFPlayer.setTimeOut(500);
 
-  myDFPlayer.volume(15);
-  myDFPlayer.volumeUp();
+  myDFPlayer.volume(18);
   myDFPlayer.volumeDown();
 
   myDFPlayer.EQ(DFPLAYER_EQ_NORMAL);
 
   myDFPlayer.outputDevice(DFPLAYER_DEVICE_SD);
   myDFPlayer.next();
+
+  ws2812fx.init();
+  ws2812fx.setBrightness(30);
+  ws2812fx.setSpeed(1000);
+  ws2812fx.setColor(0x007BFF);
+  ws2812fx.setMode(FX_MODE_STATIC);
+  ws2812fx.start();
 }
 
 void loop() {
+
+  now = millis();
+
+  ws2812fx.service();
+
+  if (now - last_change > TIMER_MS) {
+    ws2812fx.setMode((ws2812fx.getMode() + 4));
+    last_change = now;
+  }
+
   lcd1.clear();
   lcd1.setCursor(0, 0);
   lcd1.print("     ##  ##    ");
