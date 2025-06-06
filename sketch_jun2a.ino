@@ -10,7 +10,7 @@
 #define TIMER_MS 3000
 #define btn 2
 
-#if (defined(ARDUINO_AVR_UNO) || defined(ESP8266))  // Using a soft serial port
+#if (defined(ARDUINO_AVR_NANO) || defined(ESP8266))  // Using a soft serial port
 #include <SoftwareSerial.h>
 SoftwareSerial softSerial(/*rx =*/10, /*tx =*/11);
 #define FPSerial softSerial
@@ -60,7 +60,7 @@ void setup() {
 
   myDFPlayer.setTimeOut(500);
 
-  myDFPlayer.volume(10);
+  myDFPlayer.volume(15);
   myDFPlayer.volumeDown();
 
   myDFPlayer.EQ(DFPLAYER_EQ_NORMAL);
