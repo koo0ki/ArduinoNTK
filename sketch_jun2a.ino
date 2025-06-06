@@ -2,15 +2,13 @@
 #include "DFRobotDFPlayerMini.h"
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
-
 #include <Adafruit_NeoPixel.h>
-
 #include <WS2812FX.h>
 
 #define LED_COUNT 16
 #define LED_PIN 6
-
 #define TIMER_MS 3000
+#define btn 2
 
 #if (defined(ARDUINO_AVR_UNO) || defined(ESP8266))  // Using a soft serial port
 #include <SoftwareSerial.h>
@@ -31,6 +29,8 @@ LiquidCrystal_I2C lcd2(0x27, 16, 2);
 
 unsigned long last_change = 0;
 unsigned long now = 0;
+
+byte last = 0;
 
 void setup() {
 #if (defined ESP32)
@@ -60,13 +60,12 @@ void setup() {
 
   myDFPlayer.setTimeOut(500);
 
-  myDFPlayer.volume(18);
+  myDFPlayer.volume(10);
   myDFPlayer.volumeDown();
 
   myDFPlayer.EQ(DFPLAYER_EQ_NORMAL);
 
   myDFPlayer.outputDevice(DFPLAYER_DEVICE_SD);
-  myDFPlayer.next();
 
   ws2812fx.init();
   ws2812fx.setBrightness(30);
@@ -74,6 +73,8 @@ void setup() {
   ws2812fx.setColor(0x007BFF);
   ws2812fx.setMode(FX_MODE_STATIC);
   ws2812fx.start();
+
+  pinMode(btn, INPUT_PULLUP);
 }
 
 void loop() {
@@ -86,6 +87,14 @@ void loop() {
     ws2812fx.setMode((ws2812fx.getMode() + 4));
     last_change = now;
   }
+
+  byte btn_sig = !digitalRead(btn);
+
+  if (btn_sig != last && btn_sig) {
+    myDFPlayer.next();
+  }
+
+  last = btn_sig;
 
   lcd1.clear();
   lcd1.setCursor(0, 0);
