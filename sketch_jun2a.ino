@@ -4,19 +4,15 @@
 #include <LiquidCrystal_I2C.h>
 #include <Adafruit_NeoPixel.h>
 #include <WS2812FX.h>
+#include <SoftwareSerial.h>
 
 #define LED_COUNT 16
 #define LED_PIN 6
 #define TIMER_MS 3000
 #define btn 2
 
-#if (defined(ARDUINO_AVR_NANO) || defined(ESP8266))  // Using a soft serial port
-#include <SoftwareSerial.h>
 SoftwareSerial softSerial(/*rx =*/10, /*tx =*/11);
 #define FPSerial softSerial
-#else
-#define FPSerial Serial1
-#endif
 
 DFRobotDFPlayerMini myDFPlayer;
 WS2812FX ws2812fx = WS2812FX(LED_COUNT, LED_PIN, NEO_RGB + NEO_KHZ800);
@@ -60,8 +56,7 @@ void setup() {
 
   myDFPlayer.setTimeOut(500);
 
-  myDFPlayer.volume(15);
-  myDFPlayer.volumeDown();
+  myDFPlayer.volume(25);
 
   myDFPlayer.EQ(DFPLAYER_EQ_NORMAL);
 
@@ -117,16 +112,17 @@ void loop() {
 
   lcd1.clear();
   lcd1.setCursor(0, 0);
-  lcd1.print("               ");
-  lcd1.setCursor(0, 1);
   lcd1.print("     __  __    ");
+  lcd1.setCursor(0, 1);
+  lcd1.print("               ");
+
   delay(500);
 
   lcd2.clear();
   lcd2.setCursor(0, 0);
-  lcd2.print("    ______   ");
-  lcd2.setCursor(0, 1);
   lcd2.print("   |______/  ");
+  lcd2.setCursor(0, 1);
+  lcd2.print("    ______   ");
   delay(500);
 }
 
